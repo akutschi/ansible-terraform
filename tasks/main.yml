@@ -1,0 +1,31 @@
+---
+# tasks file for ansible-terraform
+
+- name: Run Terraform
+  terraform:
+    project_path: "{{ ansible_terraform_path }}"
+    variables_file: "{{ ansible_terraform_tfvars }}"
+    state: present
+    workspace: default
+  register: tf_results
+
+# - name: Show Terraform results
+#   debug: 
+#     var: tf_results
+
+# Create the dynamic inventory by iterating over the list returned 
+# by Terraform.
+- name: Add entries to inventory
+  add_host:
+    name: "{{ item.name }}"
+    ansible_ssh_host: "{{ item.ip }}"
+    ansible_ssh_user: "{{item.ansible_ssh_user}}"
+    host_key_checking: no
+    groups: "{{ item.groups | regex_replace('-', '_') }}"
+  loop: "{{ tf_results.outputs.droplets.value }}"
+
+# - name: Show hostvars
+#   debug: 
+#     var: hostvars 
+
+

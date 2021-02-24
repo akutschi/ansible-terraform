@@ -1,0 +1,5 @@
+---
+# defaults file for ansible-terraform
+
+ansible_terraform_path: ./../terraform/dev/vpn
+ansible_terraform_tfvars: ../secrets.tfvars

@@ -1,0 +1,21 @@
+galaxy_info:
+  author: akutschi
+  description: Invokes Terraform and create a dynamic inventory
+
+  license: GPL-3.0-only
+
+  min_ansible_version: 2.9
+
+  platforms:
+  - name: Ubuntu
+    versions:
+      - 20.04
+
+  galaxy_tags:
+    - terraform
+    - IaC
+    - inventory
+
+dependencies: []
+
+  
