@@ -68,6 +68,27 @@ Just clone or download this role into your `roles` folder and set up the playboo
 
 After `ansible-terraform` is finished it is recommended to make a short break and to wait until all machines become available.
 
+If your directory with Terraform is somewhere else use the following playbook as inspiration:
+
+```yml
+- name: Run Terraform and build inventory dynamically
+  hosts: localhost
+  vars:
+    - ansible_terraform_path: ./path/to/somewhere/else
+    - ansible_terraform_tfvars: ./relative/path/to/somewhere/else
+  roles:
+    - ansible-terraform
+
+- name: Wait for all machines to become ready
+  hosts: all
+  gather_facts: no
+  tasks:
+  - name: Wait for machine to become reachable
+    wait_for_connection:
+      delay: 10
+      sleep: 10
+```
+
 # License
 
 GPLv3, see [license](./LICENSE).
